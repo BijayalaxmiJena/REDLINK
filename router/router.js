@@ -1,0 +1,10 @@
+const express= require('express');
+const router=express.Router();
+const insert= require('../controller/post_blog controller');
+router.post('/insert',insert.insertIntoBlog);
+router.get('/getAll',insert.getAllBlog);
+router.get('/getAllId/:post_id',insert.getAllpostById);
+router.get('/getByAutherId/:autherId',insert.getAllpostByautherId);
+router.patch('/updateblog',insert.updatepostById);
+router.delete('/delId/:post_id',insert.DelpostById);
+module.exports=router;
