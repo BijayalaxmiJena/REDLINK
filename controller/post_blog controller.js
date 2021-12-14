@@ -1,21 +1,33 @@
+const { LONG } = require('mysql/lib/protocol/constants/types');
 const connection = require('../config/db.config');
+const inputt=require('./email');
 
 exports.insertIntoBlog = (req, res) => {
+    var datainsert=req.body;
+
+
     const qry = `insert into post(title,descriptions,auther,autherId) values('${req.body.title}','${req.body.descriptions}','${req.body.auther}','${req.body.autherId}')`
-    console.log(qry);
-    connection.query(qry, (err, rows, fields) => {
+    //console.log(qry);
+    connection.query(qry, (err, results, fields) => {
+        
         if (!err) {
             return res.status(200).json({
                 status: 1,
-                message: "successfully inserted"
+                message: results
+                
             })
+        
 
         }
         else {
             console.log(err);
         }
+        //.emailsend(req.body);
+        //console.log(`${req.body.title}`);
 
     })
+    
+    inputt.emailsend(datainsert);
 }
 exports.getAllBlog = (req, res) => {
     const qry = `select * from post`
